@@ -1,7 +1,13 @@
 import React from 'react';
+import { useSolveBoard } from '../context/ContextProvider';
 
 function Button() {
-	return <button className="button">Solve!</button>;
+	const handleClick = useSolveBoard();
+	return (
+		<button className="btn btn-success" onClick={handleClick}>
+			Solve!
+		</button>
+	);
 }
 
 export default Button;

@@ -1,18 +1,28 @@
 import './App.css';
-import { useState } from 'react';
+import Input from './components/Input';
 import SudokuBoard from './components/SudokuBoard';
 import Button from './components/Button';
 import Loader from './components/Loader';
-import { defaultBaord_9by9, emptyBaord_9by9 } from './utils/sudoku_solver';
+import {
+	useLoading,
+	useBoardToSolve,
+	useResultBoard,
+} from './context/ContextProvider';
 
 function App() {
-	const [isLoading, setisLoading] = useState(false);
+	const isLoading = useLoading();
+	const boardToSolve = useBoardToSolve();
+	// const memoizedBoard = useMemo(boardToSolve);
+	const resultBoard = useResultBoard();
 	return (
-		<div className="app-wrapper">
-			<SudokuBoard board={defaultBaord_9by9} />
-			<Button />
-			{isLoading ? <Loader /> : <SudokuBoard board={emptyBaord_9by9} />}
-		</div>
+		<>
+			<Input />
+			<div className="app-wrapper">
+				<SudokuBoard board={boardToSolve} />
+				<Button />
+				{isLoading ? <Loader /> : <SudokuBoard board={resultBoard} />}
+			</div>
+		</>
 	);
 }
 

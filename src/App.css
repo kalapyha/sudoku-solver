@@ -45,6 +45,14 @@ li {
 	justify-content: center;
 }
 
+input[type='text'] {
+	width: 90%;
+	padding: 1vw 2vw;
+	margin: 3vw 0 3vw 3vw;
+	box-sizing: border-box;
+	font-size: calc(1vw + 10px);
+}
+
 .app-wrapper {
 	margin-top: 5vh;
 	display: flex;
@@ -52,8 +60,13 @@ li {
 	align-items: center;
 }
 
-.button {
-	background-color: var(--success-color);
+.d-flex {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.btn {
 	border: none;
 	border-radius: 5px;
 	color: var(--light-color);
@@ -64,6 +77,13 @@ li {
 	font-size: calc(1vw + 10px);
 	margin: 2vw;
 	cursor: pointer;
+}
+
+.btn-success {
+	background-color: var(--success-color);
+}
+.btn-primary {
+	background-color: var(--primary-color);
 }
 
 li:nth-child(n):nth-child(-n + 9) {

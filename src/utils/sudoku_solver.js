@@ -8,17 +8,17 @@ const BOX_SIZE = 3;
 // 	['.', '.', '2', '.'],
 // ];
 
-const defaultBaord_9by9 = [
-	['5', '3', '.', '.', '7', '.', '.', '.', '.'],
-	['6', '.', '.', '1', '9', '5', '.', '.', '.'],
-	['.', '9', '8', '.', '.', '.', '.', '6', '.'],
-	['8', '.', '.', '.', '6', '.', '.', '.', '3'],
-	['4', '.', '.', '8', '.', '3', '.', '.', '1'],
-	['7', '.', '.', '.', '2', '.', '.', '.', '6'],
-	['.', '6', '.', '.', '.', '.', '2', '8', '.'],
-	['.', '.', '.', '4', '1', '9', '.', '.', '5'],
-	['.', '.', '.', '.', '8', '.', '.', '7', '9'],
-];
+// const defaultBaord_9by9 = [
+// 	['5', '3', '.', '.', '7', '.', '.', '.', '.'],
+// 	['6', '.', '.', '1', '9', '5', '.', '.', '.'],
+// 	['.', '9', '8', '.', '.', '.', '.', '6', '.'],
+// 	['8', '.', '.', '.', '6', '.', '.', '.', '3'],
+// 	['4', '.', '.', '8', '.', '3', '.', '.', '1'],
+// 	['7', '.', '.', '.', '2', '.', '.', '.', '6'],
+// 	['.', '6', '.', '.', '.', '.', '2', '8', '.'],
+// 	['.', '.', '.', '4', '1', '9', '.', '.', '5'],
+// 	['.', '.', '.', '.', '8', '.', '.', '7', '9'],
+// ];
 
 const emptyBaord_9by9 = [
 	[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
@@ -39,6 +39,10 @@ const createBoard = (str, size = 9) => {
 	}
 	return board;
 };
+
+const defaultBaord_9by9 = createBoard(
+	'4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......'
+);
 
 const findEmpty = (board, size) => {
 	for (let row = 0; row < size; row++) {
@@ -82,8 +86,13 @@ const validate = (num, position, board, size, boxSize) => {
 	return true;
 };
 
-const solveSudoku = (board) => {
-	// TODO Replace unnecessary const
+const solveSudoku = (array) => {
+	//Deep copy of the array
+	const board = JSON.parse(JSON.stringify(array));
+
+	//Star timer
+	const start = Date.now();
+
 	const size = SIZE;
 	const boxSize = BOX_SIZE;
 
@@ -113,7 +122,8 @@ const solveSudoku = (board) => {
 	};
 
 	solve();
-	return board;
+	const millis = Date.now() - start;
+	return { board, time: millis };
 };
 
 console.time('solved sudoku in');
