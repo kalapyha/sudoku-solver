@@ -1,25 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
+import SudokuBoard from './components/SudokuBoard';
+import Button from './components/Button';
+import { defaultBaord_9by9, emptyBaord_9by9 } from './utils/sudoku_solver';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<div className="app-wrapper">
+			<SudokuBoard board={defaultBaord_9by9} />
+			<Button />
+			<SudokuBoard board={emptyBaord_9by9} />
+		</div>
+	);
 }
 
 export default App;

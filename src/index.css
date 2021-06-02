@@ -1,13 +1,91 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+ul {
+	margin: 0;
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(9, 3vw);
+	grid-template-rows: repeat(9, 3vw);
+	justify-content: center;
+	align-content: center;
+	grid-gap: 0rem;
+	list-style: none;
+	font-size: calc(1vw + 10px);
+}
+
+li {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	border: 1px solid black;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.app-wrapper {
+	margin-top: 5vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.button {
+	background-color: #4caf50;
+	border: none;
+	color: white;
+	padding: 1vw 2vw;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: calc(1vw + 10px);
+	margin: 2vw;
+	cursor: pointer;
+}
+
+li:nth-child(n):nth-child(-n + 9) {
+	border-top-width: 4px;
+}
+li:nth-child(n + 73):nth-child(-n + 81) {
+	border-bottom-width: 4px;
+}
+li:nth-child(3n) {
+	border-right-width: 4px;
+}
+li:nth-child(9n + 1) {
+	border-left-width: 4px;
+}
+li:nth-child(n + 19):nth-child(-n + 27) {
+	border-bottom-width: 4px;
+}
+li:nth-child(n + 46):nth-child(-n + 54) {
+	border-bottom-width: 4px;
+}
+
+@media screen and (max-width: 768px) {
+	.app-wrapper {
+		flex-direction: column;
+		justify-content: space-around;
+	}
+	ul {
+		grid-template-columns: repeat(9, 5vw);
+		grid-template-rows: repeat(9, 5vw);
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.app-wrapper {
+		flex-direction: column;
+		justify-content: space-around;
+	}
+	ul {
+		grid-template-columns: repeat(9, 8vw);
+		grid-template-rows: repeat(9, 8vw);
+	}
 }
