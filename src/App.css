@@ -53,6 +53,11 @@ input[type='text'] {
 	font-size: calc(1vw + 10px);
 }
 
+button:disabled {
+	background: #dddddd;
+	cursor: wait;
+}
+
 .app-wrapper {
 	margin-top: 5vh;
 	display: flex;

@@ -90,7 +90,7 @@ const solveSudoku = (array) => {
 	//Deep copy of the array
 	const board = JSON.parse(JSON.stringify(array));
 
-	//Star timer
+	//Start timer
 	const start = Date.now();
 
 	const size = SIZE;

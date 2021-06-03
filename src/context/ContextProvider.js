@@ -1,4 +1,5 @@
-import React, { useState, useContext, useCallback } from 'react';
+import React, { useContext, useReducer, useEffect } from 'react';
+import reducer from '../reducer/reducer';
 import {
 	defaultBaord_9by9,
 	emptyBaord_9by9,
@@ -8,37 +9,30 @@ import {
 const AppContext = React.createContext();
 
 export const AppProvider = ({ children }) => {
-	const [isLoading, setisLoading] = useState(false);
-	const [boardToSolve, setboardToSolve] = useState(defaultBaord_9by9);
-	const [resultBoard, setResultBoard] = useState(emptyBaord_9by9);
-
-	const toggleLoading = () => {
-		setisLoading((prev) => !prev);
+	const initialState = {
+		isBtnDisabled: false,
+		isLoading: false,
+		boardToSolve: defaultBaord_9by9,
+		resultBoard: emptyBaord_9by9,
 	};
 
-	const memoizedCallback = useCallback(() => {
-		return solveSudoku(boardToSolve);
-	}, [boardToSolve]);
+	const [state, dispatch] = useReducer(reducer, initialState);
 
-	//TODO it runs all together. I can't show loading circle
-	const solveSudokuBoard = () => {
-		console.log('solving sudoku...');
-
-		const { board, time } = memoizedCallback();
-
-		setResultBoard(board);
-		console.table(board);
-		console.log(`Time spent to solve Sudoku: ${time}ms`);
-		setisLoading(false);
+	// TODO figure out why it is not working. async doesnt work too
+	const solveSudokuBoard = async () => {
+		dispatch({ type: 'ON_LOADING' });
+		dispatch({ type: 'TOGGLE_BTN_DISABLED' });
+		const { board, time } = await solveSudoku(state.boardToSolve);
+		dispatch({ type: 'SOLVE_SUDOKU', payload: board });
+		console.log(`Time spent to solve Sudoku: ${time} ms`);
+		dispatch({ type: 'OFF_LOADING' });
+		dispatch({ type: 'TOGGLE_BTN_DISABLED' });
 	};
 
 	return (
 		<AppContext.Provider
 			value={{
-				isLoading,
-				boardToSolve,
-				resultBoard,
-				toggleLoading,
+				...state,
 				solveSudokuBoard,
 			}}
 		>
