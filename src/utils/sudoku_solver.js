@@ -126,4 +126,11 @@ const solveSudoku = (array) => {
 	return { board, time: millis };
 };
 
-export { solveSudoku, createBoard, defaultBaord_9by9, emptyBaord_9by9 };
+export {
+	solveSudoku,
+	createBoard,
+	findEmpty,
+	validate,
+	defaultBaord_9by9,
+	emptyBaord_9by9,
+};
