@@ -126,9 +126,4 @@ const solveSudoku = (array) => {
 	return { board, time: millis };
 };
 
-console.time('solved sudoku in');
-// console.table(solveSudoku(defaultBaord_9by9));
-
-console.timeEnd('solved sudoku in');
-
 export { solveSudoku, createBoard, defaultBaord_9by9, emptyBaord_9by9 };

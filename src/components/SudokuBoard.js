@@ -18,4 +18,4 @@ function SudokuBoard({ board }) {
 	);
 }
 
-export default SudokuBoard;
+export default React.memo(SudokuBoard);

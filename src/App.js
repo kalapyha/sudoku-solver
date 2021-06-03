@@ -1,19 +1,13 @@
 import './App.css';
+import React from 'react';
 import Input from './components/Input';
 import SudokuBoard from './components/SudokuBoard';
 import Button from './components/Button';
 import Loader from './components/Loader';
-import {
-	useLoading,
-	useBoardToSolve,
-	useResultBoard,
-} from './context/ContextProvider';
+import { useGlobalContext } from './context/ContextProvider';
 
 function App() {
-	const isLoading = useLoading();
-	const boardToSolve = useBoardToSolve();
-	// const memoizedBoard = useMemo(boardToSolve);
-	const resultBoard = useResultBoard();
+	const { isLoading, boardToSolve, resultBoard } = useGlobalContext();
 	return (
 		<>
 			<Input />

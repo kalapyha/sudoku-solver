@@ -1,10 +1,21 @@
 import React from 'react';
-import { useSolveBoard } from '../context/ContextProvider';
+import { useGlobalContext } from '../context/ContextProvider';
 
 function Button() {
-	const handleClick = useSolveBoard();
+	const { solveSudokuBoard, toggleLoading } = useGlobalContext();
+
+	const handleClick = (e) => {
+		e.preventDefault();
+		toggleLoading();
+		//solveSudokuBoard();
+	};
 	return (
-		<button className="btn btn-success" onClick={handleClick}>
+		<button
+			className="btn btn-success"
+			onClick={(e) => {
+				handleClick(e);
+			}}
+		>
 			Solve!
 		</button>
 	);

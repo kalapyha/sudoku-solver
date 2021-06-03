@@ -1,53 +1,52 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import {
 	defaultBaord_9by9,
 	emptyBaord_9by9,
 	solveSudoku,
 } from '../utils/sudoku_solver';
 
-const LoadingContext = React.createContext();
-const BoardToSolveContext = React.createContext();
-const ResultBoardContext = React.createContext();
-const SudokuSolveContext = React.createContext();
+const AppContext = React.createContext();
 
-export function useLoading() {
-	return useContext(LoadingContext);
-}
-
-export function useBoardToSolve() {
-	return useContext(BoardToSolveContext);
-}
-
-export function useResultBoard() {
-	return useContext(ResultBoardContext);
-}
-
-export function useSolveBoard() {
-	return useContext(SudokuSolveContext);
-}
-
-export function ContextProvider({ children }) {
+export const AppProvider = ({ children }) => {
 	const [isLoading, setisLoading] = useState(false);
 	const [boardToSolve, setboardToSolve] = useState(defaultBaord_9by9);
 	const [resultBoard, setResultBoard] = useState(emptyBaord_9by9);
 
-	function handleSolve() {
-		setisLoading(true);
-		const { board, time } = solveSudoku(boardToSolve);
-		setResultBoard(board);
+	const toggleLoading = () => {
+		setisLoading((prev) => !prev);
+	};
 
-		setisLoading(false);
+	const memoizedCallback = useCallback(() => {
+		return solveSudoku(boardToSolve);
+	}, [boardToSolve]);
+
+	//TODO it runs all together. I can't show loading circle
+	const solveSudokuBoard = () => {
+		console.log('solving sudoku...');
+
+		const { board, time } = memoizedCallback();
+
+		setResultBoard(board);
+		console.table(board);
 		console.log(`Time spent to solve Sudoku: ${time}ms`);
-	}
+		setisLoading(false);
+	};
+
 	return (
-		<LoadingContext.Provider value={isLoading}>
-			<BoardToSolveContext.Provider value={boardToSolve}>
-				<ResultBoardContext.Provider value={resultBoard}>
-					<SudokuSolveContext.Provider value={handleSolve}>
-						{children}
-					</SudokuSolveContext.Provider>
-				</ResultBoardContext.Provider>
-			</BoardToSolveContext.Provider>
-		</LoadingContext.Provider>
+		<AppContext.Provider
+			value={{
+				isLoading,
+				boardToSolve,
+				resultBoard,
+				toggleLoading,
+				solveSudokuBoard,
+			}}
+		>
+			{children}
+		</AppContext.Provider>
 	);
-}
+};
+
+export const useGlobalContext = () => {
+	return useContext(AppContext);
+};
