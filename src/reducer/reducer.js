@@ -14,6 +14,12 @@ const reducer = (state, action) => {
 			return { ...state, boardToSolve: action.payload };
 		case 'CLEAR_RESULTS_BOARD':
 			return { ...state, resultBoard: action.payload };
+		case 'SUCCESS_ALERT':
+			return { ...state, alertSetting: action.payload, showAlert: true };
+		case 'DANGER_ALERT':
+			return { ...state, alertSetting: action.payload, showAlert: true };
+		case 'HIDE_ALERT':
+			return { ...state, alertSetting: action.payload, showAlert: false };
 		default:
 			throw new Error('Incorrect action type!');
 	}

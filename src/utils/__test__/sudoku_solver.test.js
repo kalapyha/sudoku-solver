@@ -1,4 +1,19 @@
 import { createBoard, findEmpty, validate } from '../sudoku_solver';
+import { isValidBoard } from '../helpers';
+
+const validBaord_4by4 = [
+	['4', '.', '1', '.'],
+	['.', '2', '.', '.'],
+	['.', '.', '3', '.'],
+	['.', '.', '2', '.'],
+];
+
+const inValidBaord_4by4 = [
+	['4', '.', '1', '.'],
+	['.', '2', '.', '.'],
+	['.', '.', '3', '.'],
+	['.', '.', '2', '2'],
+];
 
 describe('createBoard', () => {
 	test('should have correct length', () => {
@@ -18,3 +33,15 @@ describe('createBoard', () => {
 		]);
 	});
 });
+
+describe('isValidBoard', () => {
+	test('should be truthy', () => {
+		expect(isValidBoard(validBaord_4by4)).toBeTruthy();
+	});
+
+	test('should be falsy', () => {
+		expect(isValidBoard(inValidBaord_4by4)).toBeFalsy();
+	});
+});
+
+// console.log(isValidBoard(validBaord_4by4));

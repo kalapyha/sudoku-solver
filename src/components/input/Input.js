@@ -25,6 +25,7 @@ function Input() {
 				className="btn btn-primary"
 				disabled={input.length === 81 ? false : true}
 				onClick={() => {
+					//Validate credentials
 					updateBoard(createBoard(input));
 					clearBoard();
 				}}
