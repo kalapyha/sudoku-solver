@@ -1,9 +1,9 @@
 import './App.css';
 import React from 'react';
-import Input from './components/Input';
-import SudokuBoard from './components/SudokuBoard';
-import Button from './components/Button';
-import Loader from './components/Loader';
+import Input from './components/input/Input';
+import SudokuBoard from './components/board/SudokuBoard';
+import Button from './components/buttons/Button';
+import Loader from './components/loader/Loader';
 import { useGlobalContext } from './context/ContextProvider';
 
 function App() {

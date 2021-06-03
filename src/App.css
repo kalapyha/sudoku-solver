@@ -55,7 +55,7 @@ input[type='text'] {
 
 button:disabled {
 	background: #dddddd;
-	cursor: wait;
+	cursor: not-allowed;
 }
 
 .app-wrapper {

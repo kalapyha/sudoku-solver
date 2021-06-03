@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useEffect } from 'react';
+import React, { useContext, useReducer } from 'react';
 import reducer from '../reducer/reducer';
 import {
 	defaultBaord_9by9,
@@ -29,11 +29,21 @@ export const AppProvider = ({ children }) => {
 		dispatch({ type: 'TOGGLE_BTN_DISABLED' });
 	};
 
+	const updateBoard = (newBoard) => {
+		dispatch({ type: 'UPDATE_BOARD_TO_SOLVE', payload: newBoard });
+	};
+
+	const clearBoard = () => {
+		dispatch({ type: 'CLEAR_RESULTS_BOARD', payload: emptyBaord_9by9 });
+	};
+
 	return (
 		<AppContext.Provider
 			value={{
 				...state,
 				solveSudokuBoard,
+				updateBoard,
+				clearBoard,
 			}}
 		>
 			{children}

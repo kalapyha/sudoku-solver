@@ -10,6 +10,10 @@ const reducer = (state, action) => {
 			return { ...state, isBtnDisabled: !state.isBtnDisabled };
 		case 'SOLVE_SUDOKU':
 			return { ...state, resultBoard: action.payload };
+		case 'UPDATE_BOARD_TO_SOLVE':
+			return { ...state, boardToSolve: action.payload };
+		case 'CLEAR_RESULTS_BOARD':
+			return { ...state, resultBoard: action.payload };
 		default:
 			throw new Error('Incorrect action type!');
 	}

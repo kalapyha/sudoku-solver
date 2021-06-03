@@ -2,7 +2,7 @@
 
 > Sudoku Solver app built with REACT.
 
-![](link-app.png)
+![](sudoku-app.png)
 
 ## Quick Start
 
