@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
 import { useGlobalContext } from '../../context/ContextProvider';
-import { createBoard } from '../../utils/sudoku_solver';
+import { isValidBoard, createBoard } from '../../utils/helpers';
 
 function Input() {
-	const { updateBoard, clearBoard } = useGlobalContext();
+	const { updateBoard, clearBoard, showErrorMessage } = useGlobalContext();
 
 	const [input, setInput] = useState('');
+
+	const handleClick = () => {
+		//Validate credentials
+		if (!isValidBoard(createBoard(input))) {
+			showErrorMessage();
+		} else {
+			updateBoard(createBoard(input));
+			setInput('');
+			clearBoard();
+		}
+	};
 
 	return (
 		<div className="d-flex">
@@ -16,7 +27,7 @@ function Input() {
 				onChange={(e) => {
 					// Validation
 					const inputValue = e.target.value
-						.replace(/[^1-9\.]/g, '')
+						.replace(/[^1-9.]/g, '')
 						.slice(0, 81);
 					setInput(inputValue);
 				}}
@@ -24,11 +35,7 @@ function Input() {
 			<button
 				className="btn btn-primary"
 				disabled={input.length === 81 ? false : true}
-				onClick={() => {
-					//Validate credentials
-					updateBoard(createBoard(input));
-					clearBoard();
-				}}
+				onClick={handleClick}
 			>
 				Create
 			</button>

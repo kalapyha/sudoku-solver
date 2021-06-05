@@ -2,19 +2,19 @@ import React from 'react';
 import { useGlobalContext } from '../../context/ContextProvider';
 
 function Button() {
-	const { solveSudokuBoard, isBtnDisabled, showSuccessMessage } =
-		useGlobalContext();
+	const { isBtnDisabled, startLoading, startSolving } = useGlobalContext();
 
 	const handleClick = () => {
-		solveSudokuBoard();
-		showSuccessMessage();
+		startLoading();
+		startSolving();
 	};
+
 	return (
 		<button
 			data-testid="button"
 			className="btn btn-primary"
 			onClick={handleClick}
-			disabled={isBtnDisabled && true}
+			disabled={isBtnDisabled}
 		>
 			Solve!
 		</button>

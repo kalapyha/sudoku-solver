@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useEffect } from 'react';
+import React, { useContext, useReducer, useEffect, useRef } from 'react';
 import reducer from '../reducer/reducer';
 import {
 	defaultBaord_9by9,
@@ -12,6 +12,7 @@ export const AppProvider = ({ children }) => {
 	const initialState = {
 		isBtnDisabled: false,
 		isLoading: false,
+		isSolving: false,
 		boardToSolve: defaultBaord_9by9,
 		resultBoard: emptyBaord_9by9,
 		showAlert: false,
@@ -21,26 +22,12 @@ export const AppProvider = ({ children }) => {
 		},
 	};
 
-	const [state, dispatch] = useReducer(reducer, initialState);
+	const initialRender = useRef(true);
 
-	// TODO figure out why it is not working. async doesnt work too
-	const solveSudokuBoard = async () => {
-		dispatch({ type: 'ON_LOADING' });
-		dispatch({ type: 'TOGGLE_BTN_DISABLED' });
-		const { board, time } = await solveSudoku(state.boardToSolve);
-		dispatch({ type: 'SOLVE_SUDOKU', payload: board });
-		console.log(`Time spent to solve Sudoku: ${time} ms`);
-		dispatch({ type: 'OFF_LOADING' });
-		dispatch({ type: 'TOGGLE_BTN_DISABLED' });
-	};
+	const [state, dispatch] = useReducer(reducer, initialState);
 
 	const startLoading = () => {
 		dispatch({ type: 'ON_LOADING' });
-		dispatch({ type: 'TOGGLE_BTN_DISABLED' });
-	};
-
-	const stopLoading = () => {
-		dispatch({ type: 'OFF_LOADING' });
 		dispatch({ type: 'TOGGLE_BTN_DISABLED' });
 	};
 
@@ -52,15 +39,21 @@ export const AppProvider = ({ children }) => {
 		dispatch({ type: 'CLEAR_RESULTS_BOARD', payload: emptyBaord_9by9 });
 	};
 
-	const showSuccessMessage = () => {
+	const startSolving = () => {
+		dispatch({ type: 'TOGGLE_SOLVING' });
+	};
+
+	const showErrorMessage = () => {
 		dispatch({
-			type: 'SUCCESS_ALERT',
-			payload: { type: 'success', message: 'Your Sudoku has been solved!' },
+			type: 'DANGER_ALERT',
+			payload: {
+				type: 'danger',
+				message: 'Yor Board is invalid! Check it for number duplicates.',
+			},
 		});
 	};
 
 	useEffect(() => {
-		console.log('EFFECT');
 		const timeout = setTimeout(() => {
 			dispatch({
 				type: 'HIDE_ALERT',
@@ -72,16 +65,36 @@ export const AppProvider = ({ children }) => {
 		}, 2500);
 	}, [state.showAlert]);
 
+	useEffect(() => {
+		if (initialRender.current) {
+			initialRender.current = false;
+		} else {
+			const { board, time } = solveSudoku(state.boardToSolve);
+
+			dispatch({ type: 'SOLVE_SUDOKU', payload: board });
+			console.log(`Time spent to solve Sudoku: ${time} ms`);
+
+			dispatch({ type: 'OFF_LOADING' });
+			dispatch({ type: 'BUTTON_ENABLED' });
+			dispatch({
+				type: 'SUCCESS_ALERT',
+				payload: {
+					type: 'success',
+					message: `Your Sudoku has been solved! Time spent - ${time} ms`,
+				},
+			});
+		}
+	}, [state.isSolving]);
+
 	return (
 		<AppContext.Provider
 			value={{
 				...state,
-				solveSudokuBoard,
 				updateBoard,
 				clearBoard,
-				showSuccessMessage,
 				startLoading,
-				stopLoading,
+				showErrorMessage,
+				startSolving,
 			}}
 		>
 			{children}
