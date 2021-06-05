@@ -70,10 +70,8 @@ export const AppProvider = ({ children }) => {
 			initialRender.current = false;
 		} else {
 			const { board, time } = solveSudoku(state.boardToSolve);
-
 			dispatch({ type: 'SOLVE_SUDOKU', payload: board });
 			console.log(`Time spent to solve Sudoku: ${time} ms`);
-
 			dispatch({ type: 'OFF_LOADING' });
 			dispatch({ type: 'BUTTON_ENABLED' });
 			dispatch({
