@@ -146,7 +146,6 @@ li:nth-child(9n + 1) {
 	box-sizing: border-box;
 	font-size: calc(1vw + 5px);
 	color: var(--light-color);
-	background-color: var(--danger-color);
 
 	visibility: visible;
 	opacity: 1;
@@ -160,7 +159,7 @@ li:nth-child(9n + 1) {
 }
 
 .danger {
-	/* background-color: var(--danger-color); */
+	background-color: var(--danger-color);
 }
 
 .success {
@@ -184,7 +183,7 @@ li:nth-child(9n + 1) {
 		flex-direction: column;
 		justify-content: space-around;
 	}
-	.button {
+	.btn {
 		width: 70vw;
 	}
 	ul {

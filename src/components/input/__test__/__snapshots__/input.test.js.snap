@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Input /> matches snapshot 1`] = `
+<div
+  className="d-flex"
+>
+  <input
+    data-testid="input"
+    onChange={[Function]}
+    placeholder="Create your own Sudoku. ex: ...1...2...7..4...23.."
+    type="text"
+    value=""
+  />
+  <button
+    className="btn btn-primary"
+    data-testid="input-btn"
+    disabled={true}
+    onClick={[Function]}
+  >
+    Create
+  </button>
+</div>
+`;

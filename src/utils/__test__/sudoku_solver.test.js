@@ -1,5 +1,5 @@
-import { createBoard, findEmpty, validate } from '../sudoku_solver';
-import { isValidBoard } from '../helpers';
+import { findEmpty, validate } from '../sudoku_solver';
+import { isValidBoard, createBoard } from '../helpers';
 
 const validBoard_4by4 = [
 	['4', '.', '1', '.'],
@@ -68,5 +68,33 @@ describe('isValidBoard', () => {
 
 	test('should be falsy', () => {
 		expect(isValidBoard(invalidInnerBox_9by9)).toBeFalsy();
+	});
+});
+
+describe('findEmpty', () => {
+	test('should find position [0, 1]', () => {
+		expect(findEmpty(validBoard_4by4, 4)).toEqual([0, 1]);
+	});
+
+	test('should find position [0, 2]', () => {
+		expect(findEmpty(invalidInnerBox_9by9, 9)).toEqual([0, 2]);
+	});
+});
+
+describe('validate', () => {
+	test('should be truthy', () => {
+		expect(validate('3', [0, 1], validBoard_4by4, 4, 2)).toBeTruthy();
+	});
+
+	test('should be falsy', () => {
+		expect(validate('2', [0, 1], validBoard_4by4, 4, 2)).toBeFalsy();
+	});
+
+	test('should be falsy', () => {
+		expect(validate('4', [0, 1], validBoard_4by4, 4, 2)).toBeFalsy();
+	});
+
+	test('should be falsy', () => {
+		expect(validate('1', [1, 3], validBoard_4by4, 4, 2)).toBeFalsy();
 	});
 });
