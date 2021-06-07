@@ -2,6 +2,8 @@
 
 > Sudoku Solver app built with REACT.
 
+Use this [link] to see the live project (https://link-shortener-apl.herokuapp.com/)
+
 ![](sudoku-app.png)
 
 ## Quick Start
