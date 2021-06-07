@@ -1,4 +1,10 @@
-import React, { useContext, useReducer, useEffect, useRef } from 'react';
+import React, {
+	useContext,
+	useReducer,
+	useEffect,
+	useCallback,
+	useRef,
+} from 'react';
 import reducer from '../reducer/reducer';
 import {
 	defaultBaord_9by9,
